@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Search Page</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #001f3f, #002b55, #003f7f);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-start; /* Pushes everything to the left */
+            align-items: flex-start;
+            min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        .search-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px; 
+            margin: 20px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+            color: #000;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #cc0000;
+        }
+        .featured {
+            padding: 40px 20px;
+            background-color: var(--secondary-background-color);
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .articles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .news-article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+        }
+
+        .news-article img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.8));
+            transition: filter 0.3s;
+        }
+
+        .news-article img:hover {
+            filter: drop-shadow(0px 8px 20px var(--primary-color));
+        }
+
+        .news-article h2 {
+            font-size: 24px;
+            color: #ff4136;
+            margin-bottom: 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            text-shadow: 0px 0px 10px var(--text-shadow-color);
+            transition: color 0.3s;
+        }
+
+        .news-article h2:hover {
+            color: var(--text-color);
+            text-shadow: 0px 0px 15px var(--text-shadow-color);
+        }
+
+        .article-snippet {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-color);
+            max-height: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+
+        .read-more {
+            color: #7fdbff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #ff4136;
+        }
+
+        .full-content {
+            display: none;
+            margin-top: 15px;
+            color: var(--text-color);
+            font-size: 16px;
+            line-height: 1.8;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+    <script src="{{ url_for('static', filename='js/article-filter.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/searchbar.js') }}"></script>
+</head>
+<body>
+    <!--Section of the search page, the welcome header-->
+    <div name = "search-container" class="full-width-section">
+        <h1>Welcome to the search page</h1>
+
+        <br>
+    <!--Section of the search page, the search bar and the search button-->
+        <form class="form" onsubmit="return false;">
+            <input id="search" type="text" class="input" placeholder="Search for a topic">
+            <input id="searchBtn" type="submit" value="Search">
+            <button id="clear" class="clear-results" type="button">Clear</button>
+        </form>
+
+        <br>
+    <!--Section of the search page, the checkbox sections holding all the buttons, which are filters from the articles-->
+        <div class="checkbox-container">
+            <h3>Filters</h3>
+            {% for keyword in keywords%}
+            <input type=checkbox id= "{{keyword | replace(' ', '-') | replace ("'", '')}}" value = "{{keyword}}" name = "category" class="styled-checkbox" />
+            <label for={{keyword | replace(' ', '-') | replace ("'", '')}} class="styled-label">{{keyword}}</label>
+            {% endfor %}
+        </div>
+
+        <!--Do work here Matthew-->
+        <div name = "article container" class="news-section">
+            <h2>Articles</h2>
+            <section class="featured">
+                <div class="articles">
+                    {% for article in featured_articles %}
+                    <div class="news-article" keywords = "{{article.keywords}}">
+                        <h2>{{ article.title }}</h2>
+                        <img src="{{ article.image_url }}" alt="{{ article.title }}" style="width:200px;height:auto;">
+                        <!-- <p>Image URL: {{ article.image_url }}</p>
+                        <img src = "./static/images/tech-thumbnail.jpg"> -->
+                        <p class="article-snippet">{{ article.snippet }}</p>
+                        <a class="read-more" onclick="toggleReadMore(this)">Read More</a>
+                        <div class="full-content">
+                            <p>{{ article.content }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <script>
+                    // JavaScript for the article animation
+                    const articles = document.querySelectorAll('.article');
+                    let lastScrollTop = 0;
+   
+                    window.addEventListener('scroll', () => {
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+   
+                        articles.forEach((article, index) => {
+                            const articleTop = article.getBoundingClientRect().top + window.scrollY;
+   
+                            if (scrollTop > lastScrollTop) {
+                                if (scrollTop > articleTop - window.innerHeight + 150) {
+                                    article.style.opacity = '1';
+                                    article.style.transform = 'translateY(0) rotateX(0)';
+                                    article.style.transitionDelay = `${index * 0.1}s`; // Domino effect when scrolling down
+                                }
+                            } else {
+                                if (scrollTop < articleTop - window.innerHeight + 150) {
+                                    article.style.opacity = '0';
+                                    article.style.transform = 'translateY(100px) rotateX(-90deg)';
+                                    article.style.transitionDelay = `${(articles.length - index) * 0.1}s`;
+                                }
+                            }
+                        });
+   
+                        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                    });
+   
+                    // Function to toggle the Read More content
+                    function toggleReadMore(element) {
+                        const content = element.nextElementSibling;
+                        const displayStyle = content.style.display;
+   
+                        if (displayStyle === 'none' || displayStyle === '') {
+                            content.style.display = 'block';
+                            element.textContent = 'Read Less';
+                        } else {
+                            content.style.display = 'none';
+                            element.textContent = 'Read More';
+                        }
+                    }
+   
+                </script>
+                
+                
+            </section>
+        </div>
+
+    </div>
+</body>
+</html>

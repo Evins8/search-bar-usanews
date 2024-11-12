@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Page with Chat</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #001f3f, #002b55, #003f7f);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1600px;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-left: 0;
+        }
+
+        /* Article Section */
+        .article-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .article-image-placeholder img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .article-content {
+            background-color: rgba(0, 31, 63, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .article-content h2 {
+            font-size: 2.5rem;
+            color: #ff4136;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255, 65, 54, 0.7), 0 0 30px rgba(255, 65, 54, 0.5);
+        }
+
+        .article-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #7fdbff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
+        }
+
+        /* Related Articles Section */
+        .related-articles {
+            background-color: rgba(0, 31, 63, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            margin-top: 40px;
+        }
+
+        .related-articles h3 {
+            font-size: 1.8rem;
+            color: #ff4136;
+            margin-bottom: 15px;
+        }
+
+        .related-articles ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .related-articles li {
+            margin-bottom: 10px;
+        }
+
+        .related-articles a {
+            color: #7fdbff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .related-articles a:hover {
+            color: #ff4136;
+        }
+
+        /* Community Chat */
+        .community-chat {
+            flex: 1;
+            background-color: rgba(0, 31, 63, 0.9);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            height: calc(100vh - 50px);
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-box {
+            flex-grow: 1;
+            background-color: #011627;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Custom Scroll Bar for WebKit Browsers */
+        .chat-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-box::-webkit-scrollbar-track {
+            background: rgba(0, 31, 63, 0.5);
+            border-radius: 10px;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background-color: #ff4136;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 31, 63, 0.5);
+        }
+
+        .chat-box::-webkit-scrollbar-thumb:hover {
+            background-color: #ff6347;
+        }
+
+        /* Messages */
+        .chat-message {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #002b36;
+            border-radius: 10px;
+            color: #ffffff;
+            text-align: left;
+            max-width: 70%;
+            clear: both;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .chat-message.self {
+            background-color: #ff4136;
+            text-align: right;
+            float: right;
+            border-radius: 10px 10px 0 10px;
+            box-shadow: 0 0 15px rgba(255, 65, 54, 0.5);
+            color: #fff;
+            max-width: 70%;
+        }
+
+        .chat-message.self::after {
+            content: "(You)";
+            color: #ffffff;
+            font-size: 0.85rem;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        /* Chat Input Controls */
+        .chat-controls {
+            display: flex;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            background-color: #011627;
+            color: #ffffff;
+        }
+
+        #send-btn {
+            background-color: #ff4136;
+            padding: 12px 25px;
+            border-radius: 10px;
+            border: none;
+            color: #ffffff;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #send-btn:hover {
+            background-color: #ff6347;
+            box-shadow: 0 0 15px rgba(255, 99, 71, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header class="site-header">
+            <h1>Site Title</h1>
+            <p>Welcome to the coolest article page!</p>
+        </header>
+
+        <!-- Article Section -->
+        <section class="article-section">
+            <div class="article-image-placeholder">
+                <img src="placeholder.jpg" alt="Article Image">
+            </div>
+
+            <div class="article-content">
+                <h2>Article Title Goes Here</h2>
+                <p>This is a placeholder for the article text. You can write your awesome content here, making sure to maintain a clear and engaging flow.</p>
+                <p>Add more information to engage the readers and include interactive media for a visually pleasing experience.</p>
+            </div>
+
+            <!-- Related Articles -->
+            <aside class="related-articles">
+                <h3>Other Articles You May Like</h3>
+                <ul>
+                    <li><a href="#">Article 1</a></li>
+                    <li><a href="#">Article 2</a></li>
+                    <li><a href="#">Article 3</a></li>
+                </ul>
+            </aside>
+        </section>
+    </div>
+
+    <!-- Chat Section -->
+    <div class="community-chat">
+        <h2>Chat</h2>
+        <div id="chat-box" class="chat-box"></div>
+
+        <div class="chat-controls">
+            <input type="text" id="message-input" class="chat-input" placeholder="Type your message...">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const userId = "{{ user_id }}";  // Get the user ID from Flask template
+            const pollingInterval = 1000;  // Set polling interval to 1 second
+            let autoScrollEnabled = true;  // Flag to enable/disable auto-scroll
+
+            // Function to load and display messages from the server
+            function loadMessages() {
+                $.get('/get_messages', function(data) {
+                    const chatBox = $('#chat-box');
+                    const shouldAutoScroll = chatBox.scrollTop() + chatBox.innerHeight() >= chatBox[0].scrollHeight - 20;
+
+                    chatBox.empty();  // Clear the chat box
+
+                    // Ensure the messages are displayed in the correct order (oldest to newest)
+                    data.forEach(message => {
+                        const messageHtml = message.user === userId ? 
+                            `<div class="chat-message self">
+                                <span class="timestamp">${message.timestamp}</span>
+                                <span class="message">${message.message}</span>
+                            </div>` :
+                            `<div class="chat-message">
+                                <span class="timestamp">${message.timestamp} (${message.user}):</span>
+                                <span class="message">${message.message}</span>
+                            </div>`;
+                        chatBox.append(messageHtml);
+                    });
+
+                    // If auto-scroll is enabled, scroll to the bottom
+                    if (autoScrollEnabled && shouldAutoScroll) {
+                        chatBox.scrollTop(chatBox[0].scrollHeight);
+                    }
+                });
+            }
+
+            // Function to send a new message to the server
+            function sendMessage() {
+                const message = $('#message-input').val();
+                if (message.trim() !== '') {
+                    $.post('/send_message', { message: message }, function() {
+                        $('#message-input').val('');  // Clear input after sending
+                        loadMessages();  // Reload the messages after sending
+                    });
+                }
+            }
+
+            // Event listener for the Send button
+            $('#send-btn').click(function() {
+                sendMessage();
+            });
+
+            // Allow pressing Enter to send a message
+            $('#message-input').keypress(function(e) {
+                if (e.which === 13) {  // Enter key
+                    sendMessage();
+                }
+            });
+
+            // Track user scrolling to disable auto-scroll when they scroll up
+            $('#chat-box').on('scroll', function() {
+                const chatBox = $(this);
+                if (chatBox.scrollTop() + chatBox.innerHeight() >= chatBox[0].scrollHeight - 20) {
+                    autoScrollEnabled = true;  // Re-enable auto-scroll when user reaches the bottom
+                } else {
+                    autoScrollEnabled = false;  // Disable auto-scroll when user scrolls up
+                }
+            });
+
+            // Automatically poll the server for new messages every second
+            setInterval(loadMessages, pollingInterval);
+
+            // Initial load of messages when the page is first loaded
+            loadMessages();
+        });
+    </script>
+</body>
+</html>

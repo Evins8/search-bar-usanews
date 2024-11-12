@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="USANewsGlobal - AI-driven news platform created by the community for the community, delivering technology, politics, and entertainment news with real-time AI assistance.">
+    <meta name="keywords" content="USANewsGlobal, Tomorrow's AI, AI assistants, community-driven news, AI alerts, AI summaries, technology news, politics news, entertainment news">
+    <meta name="author" content="USANewsGlobal Community">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="USANewsGlobal - The Future of AI-Powered News">
+    <meta property="og:description" content="Bringing news closer to you with AI assistants for summarizing, personalized alerts, and community-driven content. Powered by Tomorrow's AI.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usanewsglobal.com">
+    <meta property="og:image" content="https://www.usanewsglobal.com/static/images/ai-news-banner.jpg">
+    <title>USANewsGlobal - AI-Powered News for the Community</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        
+
+    </style>
+</head>
+<body>
+    <!-- Welcome Animation Overlay -->
+    <div id="welcome-overlay">
+        <div class="stars"></div>
+        <div class="welcome-message">
+            <h1>Welcome to USANewsGlobal <i class="fas fa-newspaper"></i></h1>
+            <p>Powered by Tomorrow's AI - Built by the Community for the Community <i class="fas fa-users"></i></p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="main-content">
+        <!-- Header Section -->
+        <div class="topnav">
+            <a class="active" href="/">Home</a>
+            <a href="/search">search</a>
+          </div>
+        <h1><i class="fas fa-globe"></i> USANewsGlobal</h1>
+        <p>Bringing You the Latest in <i class="fas fa-laptop-code"></i> Technology, <i class="fas fa-balance-scale"></i> Politics, and <i class="fas fa-film"></i> Entertainment</p>
+        </header>
+
+        <!-- Full-width Section: About Tomorrow's AI -->
+        <section class="full-width-section about-section">
+            <h2></i> About USANewsGlobal & Tomorrow's AI</h2>
+            <p>USANewsGlobal is a cutting-edge platform powered by <i class="fas fa-robot"></i> Tomorrow's AI, designed to bring real-time news and updates directly to you. Our platform is community-driven, making it a trusted source of news in <i class="fas fa-cogs"></i> technology, <i class="fas fa-handshake"></i> politics, and <i class="fas fa-theater-masks"></i> entertainment. Whether you’re here for quick summaries, personalized alerts, or breaking news, USANewsGlobal ensures you stay informed with the latest and most relevant news.</p>
+        </section>
+
+        <!-- Full-width Section: AI Assistants -->
+        <section class="full-width-section ai-assistants-section">
+            <h2><i class="fas fa-user-robot"></i> AI Assistants - Always at Your Service</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <h3>AI Summaries <i class="fas fa-file-alt"></i></h3>
+                    <p>Get quick summaries of any article on the platform, allowing you to capture the essence of the story in seconds.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>AI Alerts <i class="fas fa-bell"></i></h3>
+                    <p>Stay up-to-date with personalized alerts. Let our AI keep you informed about the topics that matter most to you.</p>
+                </div>
+                <div class="feature-card">
+                    <a href="{{ url_for('search') }}"style="text-decoration: none; color: inherit;">
+                        <h3>Smart Search <i class="fas fa-search"></i></h3>
+                        <p>Looking for specific news? Our AI-powered search tool helps you find relevant articles quickly and efficiently.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Full-width Section: Trending Topics -->
+        <section class="full-width-section trending-section">
+            <h2><i class="fas fa-chart-line"></i> Trending Topics</h2>
+            <div class="trending-topics">
+                <article class="trending-topic">
+                    <h3>5G Technology and its Global Impact <i class="fas fa-signal"></i></h3>
+                    <p>As 5G continues to roll out globally, learn how this technology will revolutionize industries and daily life.</p>
+                    <a href="#" class="read-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="trending-topic">
+                    <h3>Climate Change Policy: What's Next? <i class="fas fa-leaf"></i></h3>
+                    <p>Explore the latest climate change policies being proposed by world leaders and what it means for the future.</p>
+                    <a href="#" class="read-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="trending-topic">
+                    <h3>The Evolution of AI in Healthcare <i class="fas fa-stethoscope"></i></h3>
+                    <p>Discover the cutting-edge AI innovations that are transforming healthcare and improving patient outcomes.</p>
+                    <a href="#" class="read-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                </article>
+            </div>
+        </section>
+
+        <!-- News Feed Section (Left) -->
+        <section class="full-width-section news-section">
+            <h2><i class="fas fa-newspaper"></i> Top Stories</h2>
+            <div class="news-articles">
+
+                <!-- use THIS CLASS for search.html article divs -->
+                <article class="news-article">
+                    <h3>AI and Quantum Computing Breakthroughs <i class="fas fa-brain"></i></h3>
+                    <p>Discover how advancements in AI and quantum computing are shaping the future of technology...</p>
+                    <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="news-article">
+                    <h3>Global Political Shifts Post-Elections <i class="fas fa-landmark"></i></h3>
+                    <p>Find out how the latest elections are changing political landscapes around the globe...</p>
+                    <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="news-article">
+                    <h3>Recap of the Oscars 2024 <i class="fas fa-film"></i></h3>
+                    <p>The biggest night in entertainment has arrived, and here are the highlights you can't miss from the Oscars 2024...</p>
+                    <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Community Chat Section (Right) -->
+        <aside class="community-chat">
+            <h2><i class="fas fa-comments"></i> Live Community Chat</h2>
+            <div class="chat-box" id="chat-box"></div>
+            <div class="chat-controls">
+                <input type="text" id="message-input" placeholder="Type your message..." class="chat-input">
+                <button id="send-btn">Send <i class="fas fa-paper-plane"></i></button>
+            </div>
+        </aside>
+
+        <section class="newsletter-section">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Stay updated with the latest news in technology, politics, and entertainment by subscribing to our newsletter.</p>
+            <form action="#" method="POST">
+                <input type="email" placeholder="Your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+            <footer class="footer-section">
+                <p>© 2024 USANewsGlobal - The Future of Media, Powered by Tomorrow's AI</p>
+                <nav>
+                    <a href="#">About</a> |
+                    <a href="#">Contact</a> |
+                    <a href="#">Privacy Policy</a>
+                </nav>
+            </footer>
+        </section>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/welcome-animation.js') }}"></script>
+</body>
+</html>

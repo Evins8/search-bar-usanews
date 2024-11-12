@@ -1,0 +1,29 @@
+<!-- upload_article.html -->
+<!DOCTYPE html> <!-- Declare the document type as HTML5 -->
+<html lang="en"> <!-- Start the HTML document and set the language to English -->
+<head>
+    <meta charset="UTF-8"> <!-- Set the character encoding for the document to UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Make the page responsive on mobile devices -->
+    <title>Upload Article</title> <!-- Set the title of the page that appears in the browser tab -->
+</head>
+<body>
+    <h1>Upload an Article</h1> <!-- Main heading for the upload article page -->
+    <form action="/upload" method="post" enctype="multipart/form-data"> <!-- Start a form to upload data -->
+        <label for="title">Title:</label><br> <!-- Label for the title input field -->
+        <input type="text" id="title" name="title" required> <!-- Text input for the article title, marked as required -->
+        <br><br> <!-- Line break for spacing -->
+
+        <label for="content">Content:</label><br> <!-- Label for the content textarea -->
+        <textarea id="content" name="content" required></textarea> <!-- Textarea for the article content, marked as required -->
+        <br><br> <!-- Line break for spacing -->
+
+        <label for="image">Image:</label><br> <!-- Label for the image input field -->
+        <input type="file" id="image" name="image" accept="image/*"> <!-- File input for uploading an image; accepts only image files -->
+        <br><br> <!-- Line break for spacing -->
+
+        <input type="submit" value="Upload Article"> <!-- Submit button to upload the article -->
+    </form>
+    <a href="/">Back to Home</a> <!-- Link to navigate back to the home page -->
+</body>
+</html>
+
